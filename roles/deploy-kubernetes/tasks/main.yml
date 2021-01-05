@@ -1,0 +1,23 @@
+-
+# tasks file for deploy-kubernetes
+- name: Initializing the kubernetes cluster on the master node...
+  become: yes
+  shell: kubeadm init --pod-network-cidr=10.244.0.0/16
+
+- name: Creating .kube directory
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: 0755
+
+- name: Configuring users cluster access
+  become: yes
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ansible/.kube/config
+    remote_src: yes
+    owner: ansible
+ 
+- name: Installing Pod network.... (Flannel)
+  shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+

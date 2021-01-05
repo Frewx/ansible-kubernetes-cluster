@@ -1,0 +1,47 @@
+---
+# tasks file for install-kubernetes-packages
+- name: Installing Docker
+  become: yes
+  apt:
+    name: docker.io
+    state: present
+    update_cache: true
+
+- name: Enabling Docker...
+  become: yes
+  service:
+    name: docker
+    enabled: yes
+
+- name: Installing APT Transport HTTPS
+  become: yes
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: Adding kubernetes apt-key
+  become: yes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+- name: Adding kubernetes APT repository
+  become: yes
+  apt_repository:
+   repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+   state: present
+   filename: 'kubernetes'
+
+- name: Installing kubelet
+  become: yes
+  apt:
+    name: kubelet
+    state: present
+    update_cache: true
+
+- name: Installing kubeadm
+  become: yes
+  apt:
+    name: kubeadm
+    state: present
+    update_cache: true

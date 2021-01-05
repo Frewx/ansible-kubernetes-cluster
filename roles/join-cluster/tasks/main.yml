@@ -1,0 +1,6 @@
+---
+# tasks file for join-cluster
+#
+- name: Joining to the cluster
+  become: yes
+  shell: "{{ hostvars['kubemaster']['join_command'] }}"
