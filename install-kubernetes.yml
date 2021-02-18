@@ -32,3 +32,9 @@
   hosts: kubeworkers
   roles:
     - join-cluster
+
+- name: Starting installation of Helm...
+  hosts: kubemaster
+  roles:
+    - install-helm
+
