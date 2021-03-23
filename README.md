@@ -1,5 +1,7 @@
 # Bootstrapping a kubernetes cluster using ansible
-
+ 
+ Creating a kubernetes cluster via ansible.
+ 
 # Prerequisites:
 * You should have a user named 'ansible' on all of the hosts.
 * You should configure passwordless root for ansible user
